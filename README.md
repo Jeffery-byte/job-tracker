@@ -2,6 +2,9 @@
 
 A beautiful, modern React application for tracking job applications with a comprehensive 17-stage pipeline system.
 
+## 🔗 Live Demo
+**Try it now: [https://job-tracker-alpha-woad.vercel.app/](https://job-tracker-alpha-woad.vercel.app/)**
+
 ## ✨ Features
 
 - **17-Stage Pipeline System**: Track your applications from initial research to final decision
