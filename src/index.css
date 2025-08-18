@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply m-0 text-gray-900;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  select {
+    @apply block w-full px-3 py-2 text-base
+           border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+           rounded-lg shadow-sm
+           bg-white
+           cursor-pointer
+           hover:border-gray-400
+           transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center
+           px-4 py-2 rounded-lg
+           font-medium text-sm
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white
+           hover:bg-blue-700
+           focus:ring-blue-500;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-gray-700 border border-gray-300
+           hover:bg-gray-50 hover:text-gray-900
+           focus:ring-gray-500;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white
+           hover:bg-red-700
+           focus:ring-red-500;
+  }
+
+  .input {
+    @apply block w-full px-3 py-2
+           border border-gray-300 rounded-lg
+           shadow-sm
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+           placeholder-gray-400
+           transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6
+           hover:shadow-md transition-shadow duration-200;
+  }
+
+  .application-card {
+    @apply bg-white rounded-2xl border border-gray-200 p-6
+           shadow-sm hover:shadow-xl
+           transition-all duration-300 ease-out
+           transform hover:-translate-y-2 hover:scale-[1.02]
+           cursor-pointer relative;
+    background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 100%);
+  }
+
+  .application-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .application-card:hover::before {
+    opacity: 1;
+  }
+
+  .application-card:hover {
+    border-color: #e5e7eb;
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(59, 130, 246, 0.1);
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+}
+
+.loading {
+  @apply animate-spin;
+}
+
+/* Additional tile animations and effects */
+@keyframes tileHover {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tile-enter {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+.application-card .company-logo {
+  transition: transform 0.3s ease;
+}
+
+.application-card:hover .company-logo {
+  transform: scale(1.1);
+}
+
+.application-card .action-button {
+  @apply opacity-0 transition-all duration-200;
+}
+
+.application-card:hover .action-button {
+  @apply opacity-100;
+}
+
+.application-card .status-badge {
+  transition: all 0.3s ease;
+}
+
+.application-card:hover .status-badge {
+  transform: scale(1.05);
+}
+
+/* Ensure dropdowns appear above cards and other elements */
+.quick-actions {
+  position: relative;
+  z-index: 10;
+}
+
+.quick-actions .relative {
+  z-index: 20;
+}
+
+/* When dropdown is open, elevate the entire card */
+.application-card:has(.quick-actions .relative button[aria-expanded="true"]) {
+  z-index: 50;
+  position: relative;
+}
+
+/* Alternative for browsers that don't support :has() */
+.application-card.dropdown-active {
+  z-index: 50;
+  position: relative;
+}
+
+/* Grid container should allow overflow for dropdowns */
+.applications-grid {
+  overflow: visible;
+}
+
+/* Ensure card grid allows dropdown overflow */
+.application-card {
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+
+/* When card is hovered, slightly elevate it */
+.application-card:hover {
+  z-index: 5;
+}
