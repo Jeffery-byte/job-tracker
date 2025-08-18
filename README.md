@@ -1,23 +1,125 @@
-# Getting Started with Create React App
+# Job Tracker - Modern Application Pipeline Management
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A beautiful, modern React application for tracking job applications with a comprehensive 17-stage pipeline system.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+- **17-Stage Pipeline System**: Track your applications from initial research to final decision
+- **Beautiful Tile UI**: Modern card-based interface with smooth hover animations
+- **Real-time Updates**: Powered by Supabase for instant synchronization
+- **Visual Progress Tracking**: Progress bars and phase indicators for each application
+- **Quick Actions**: Fast stage transitions with dropdown menus
+- **Smart Filtering**: Filter by stage, phase, company, or custom search
+- **Responsive Design**: Works perfectly on desktop and mobile
+- **Company Logos**: Automatic company logo fetching and caching
 
-### `npm start`
+## 🎯 Pipeline Stages
 
-Runs the app in the development mode.\
+### Application Phase
+- Company Research
+- Application Prep
+- Applied
+- Application Under Review
+
+### Interview Phase  
+- Phone Screening
+- Technical Assessment
+- First Interview
+- Second Interview
+- Final Interview
+- Reference Check
+
+### Decision Phase
+- Pending Decision
+- Salary Negotiation
+- Offer Received
+- Offer Accepted
+
+### Other
+- Rejected
+- Withdrew Application
+- Position Filled
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+- Supabase account
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/YOUR_USERNAME/job-tracker.git
+cd job-tracker
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Set up environment variables:
+Create a `.env` file in the root directory:
+```env
+REACT_APP_SUPABASE_URL=your_supabase_url
+REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. Set up the database:
+Run the SQL migration script in your Supabase dashboard:
+```sql
+-- See simple-pipeline-migration.sql for the complete script
+```
+
+5. Start the development server:
+```bash
+npm start
+```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🗄️ Database Schema
 
-### `npm test`
+The application uses a single `applications` table with the following key columns:
+- `pipeline_stage`: Current stage in the application process
+- `stage_changed_date`: When the stage was last updated
+- `expected_next_step`: Notes about what's expected next
+- `interview_notes`: JSONB field for interview details
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🎨 Tech Stack
+
+- **Frontend**: React 18, Tailwind CSS
+- **Backend**: Supabase (PostgreSQL)
+- **Icons**: Lucide React
+- **Animations**: CSS transitions and transforms
+
+## 📖 Usage
+
+1. **Add Applications**: Click the "+" button to add new job applications
+2. **Track Progress**: Use the visual pipeline to see where each application stands
+3. **Update Stages**: Use Quick Actions or the dropdown to move applications through stages
+4. **Filter & Search**: Use the search bar and filters to find specific applications
+5. **Monitor Timeline**: Track how long applications have been in each stage
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+- Built with Create React App
+- UI components inspired by modern design principles
+- Icons provided by Lucide React
 
 ### `npm run build`
 
