@@ -5,6 +5,9 @@ A beautiful, modern React application for tracking job applications with a compr
 ## 🔗 Live Demo
 **Try it now: [https://job-tracker-alpha-woad.vercel.app/](https://job-tracker-alpha-woad.vercel.app/)**
 
+⚠️ Note: For the logo generator,the actual project for this link is [AI logo generator](https://github.com/Jeffery-byte/AI-logo-generator)
+
+
 ## ✨ Features
 
 - **17-Stage Pipeline System**: Track your applications from initial research to final decision
