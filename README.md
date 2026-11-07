@@ -8,7 +8,7 @@ actions, search application details, and view phase counts and days in stage.
 
 ## Run locally
 
-Use Node.js 22 and npm.
+Use Node.js 22.12+ and npm.
 
 ```sh
 git clone https://github.com/Jeffery-byte/job-tracker.git
@@ -47,7 +47,7 @@ variable or source file. This version has no end-user authentication flow.
 - Use predefined stage transitions and progress indicators.
 - View phase totals and average days in stage.
 
-`src/pipelineConfig.js` defines the stages and transitions. `src/App.js` handles
+`src/pipelineConfig.js` defines the stages and transitions. `src/App.jsx` handles
 the interface and CRUD operations. Data loads on page load and refreshes after
 mutations; the app does not subscribe to Supabase Realtime.
 
@@ -55,8 +55,20 @@ mutations; the app does not subscribe to Supabase Realtime.
 
 ```sh
 npm run build
-npm test -- --watchAll=false
 ```
 
-The build output is `build/`. This project uses Create React App and Tailwind CSS.
+The build output is `build/`. This project uses Vite and Tailwind CSS. Legacy `REACT_APP_SUPABASE_*`
+configuration remains supported alongside `VITE_SUPABASE_*`. The Vercel build
+configuration preserves the `build/` output directory.
 There are no measured uptime or performance guarantees in this repository.
+
+## Automated checks
+
+GitHub Actions builds the app, checks the installed npm dependency tree for known
+advisories, and checks tracked current files for common credential patterns.
+Dependabot proposes dependency updates weekly. The credential check is limited
+and does not replace reviewing changes or revoking historical secrets.
+
+Only public Supabase browser keys belong in the frontend. Database Row Level
+Security and authentication, rather than hiding an anon key, determine which
+records users can access. The shared demo is not a private multi-user service.
