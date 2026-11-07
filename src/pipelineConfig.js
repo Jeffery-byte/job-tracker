@@ -178,7 +178,6 @@ export const getNextStages = (currentStage) => {
   const current = PIPELINE_STAGES[currentStage];
   if (!current) return [];
 
-  const currentOrder = current.order;
   
   // Define possible transitions
   const transitions = {
