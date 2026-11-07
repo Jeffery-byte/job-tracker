@@ -1,178 +1,62 @@
-# Job Tracker - Modern Application Pipeline Management
+# Job Tracker
 
-A beautiful, modern React application for tracking job applications with a comprehensive 17-stage pipeline system.
+A React 19 application for organizing job applications with Supabase / PostgreSQL.
+Track applications across **16 stages in four phases**, update stages with quick
+actions, search application details, and view phase counts and days in stage.
 
-## 🔗 Live Demo
-**Try it now: [https://job-tracker-alpha-woad.vercel.app/](https://job-tracker-alpha-woad.vercel.app/)**
+[Live demo](https://job-tracker-alpha-woad.vercel.app/)
 
-⚠️ Note: For the logo generator,the actual project for this link is [AI logo generator](https://github.com/Jeffery-byte/AI-logo-generator)
+## Run locally
 
+Use Node.js 22 and npm.
 
-## ✨ Features
-
-- **17-Stage Pipeline System**: Track your applications from initial research to final decision
-- **Beautiful Tile UI**: Modern card-based interface with smooth hover animations
-- **Real-time Updates**: Powered by Supabase for instant synchronization
-- **Visual Progress Tracking**: Progress bars and phase indicators for each application
-- **Quick Actions**: Fast stage transitions with dropdown menus
-- **Smart Filtering**: Filter by stage, phase, company, or custom search
-- **Responsive Design**: Works perfectly on desktop and mobile
-- **Company Logos**: Automatic company logo fetching and caching
-
-## 🎯 Pipeline Stages
-
-### Application Phase
-- Company Research
-- Application Prep
-- Applied
-- Application Under Review
-
-### Interview Phase  
-- Phone Screening
-- Technical Assessment
-- First Interview
-- Second Interview
-- Final Interview
-- Reference Check
-
-### Decision Phase
-- Pending Decision
-- Salary Negotiation
-- Offer Received
-- Offer Accepted
-
-### Other
-- Rejected
-- Withdrew Application
-- Position Filled
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-- Supabase account
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/YOUR_USERNAME/job-tracker.git
+```sh
+git clone https://github.com/Jeffery-byte/job-tracker.git
 cd job-tracker
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Set up environment variables:
-Create a `.env` file in the root directory:
-```env
-REACT_APP_SUPABASE_URL=your_supabase_url
-REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-
-4. Set up the database:
-Run the SQL migration script in your Supabase dashboard:
-```sql
--- See simple-pipeline-migration.sql for the complete script
-```
-
-5. Start the development server:
-```bash
+npm ci
+cp .env.example .env
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open http://localhost:3000. Set the two `REACT_APP_SUPABASE_*` values in `.env`
+to use your own Supabase project; restart the development server after changes.
+The existing public demo configuration remains the fallback for compatibility.
+Use synthetic records when exploring a shared demo.
 
-## 🗄️ Database Schema
+## Database setup
 
-The application uses a single `applications` table with the following key columns:
-- `pipeline_stage`: Current stage in the application process
-- `stage_changed_date`: When the stage was last updated
-- `expected_next_step`: Notes about what's expected next
-- `interview_notes`: JSONB field for interview details
+The SQL files in this repository are **upgrades for an existing `applications`
+table**, not a complete fresh database bootstrap. The app expects base columns
+including `id`, `company`, `position`, `status`, `applied_date`, `created_at`,
+`location`, `job_url`, `notes`, and `priority`.
 
-## 🎨 Tech Stack
+Review `simple-pipeline-migration.sql` for the basic pipeline columns and
+`database-migration.sql` for stage history, phase calculation, and triggers.
+Apply migrations only to your own database after reviewing them and backing up
+existing data. Supabase Row Level Security policies are configured separately;
+this repository does not establish per-user access isolation.
 
-- **Frontend**: React 18, Tailwind CSS
-- **Backend**: Supabase (PostgreSQL)
-- **Icons**: Lucide React
-- **Animations**: CSS transitions and transforms
+The browser uses a public Supabase anon key. It is not a secret and does not
+replace access policies. Never put a service-role key in a React environment
+variable or source file. This version has no end-user authentication flow.
 
-## 📖 Usage
+## Features and implementation
 
-1. **Add Applications**: Click the "+" button to add new job applications
-2. **Track Progress**: Use the visual pipeline to see where each application stands
-3. **Update Stages**: Use Quick Actions or the dropdown to move applications through stages
-4. **Filter & Search**: Use the search bar and filters to find specific applications
-5. **Monitor Timeline**: Track how long applications have been in each stage
+- Create, edit, and delete application records.
+- Filter by pipeline phase or stage and search application details.
+- Use predefined stage transitions and progress indicators.
+- View phase totals and average days in stage.
 
-## 🤝 Contributing
+`src/pipelineConfig.js` defines the stages and transitions. `src/App.js` handles
+the interface and CRUD operations. Data loads on page load and refreshes after
+mutations; the app does not subscribe to Supabase Realtime.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## Development commands
 
-## 📄 License
+```sh
+npm run build
+npm test -- --watchAll=false
+```
 
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
-
-- Built with Create React App
-- UI components inspired by modern design principles
-- Icons provided by Lucide React
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The build output is `build/`. This project uses Create React App and Tailwind CSS.
+There are no measured uptime or performance guarantees in this repository.
