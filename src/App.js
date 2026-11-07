@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Plus, Search, Calendar, Building, MapPin, ExternalLink, Edit2, Trash2, Loader, BarChart3 } from 'lucide-react';
 import { supabase } from './supabaseClient';
 import PipelineProgress, { PipelinePhaseIndicator } from './PipelineProgress';
@@ -432,7 +432,7 @@ const JobTracker = () => {
   };
 
   // Load applications from Supabase
-  const loadApplications = async () => {
+  const loadApplications = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('applications')
@@ -442,22 +442,13 @@ const JobTracker = () => {
       if (error) throw error;
       const apps = data || [];
       setApplications(apps);
-      
-      // Prefetch logos for all companies (but don't block UI)
-      apps.forEach(app => {
-        if (app.company && !logoCache[app.company.toLowerCase().trim()]) {
-          getCompanyLogo(app.company).catch(() => {
-            // Silently handle logo fetch failures
-          });
-        }
-      });
     } catch (error) {
       console.error('Error loading applications:', error);
       alert('Error loading applications. Check your Supabase connection.');
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   // Load applications when component mounts
   useEffect(() => {
@@ -470,7 +461,7 @@ const JobTracker = () => {
     
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
+  }, [loadApplications]);
 
   const filteredApplications = applications.filter(app => {
     const matchesSearch = app.company?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -694,7 +685,7 @@ const JobTracker = () => {
             setIsLoading(false);
           });
       }
-    }, [companyName, logoCache, cacheKey]);
+    }, [companyName, cacheKey]);
 
     if (!companyName) {
       return (
