@@ -38,7 +38,7 @@ CREATE INDEX IF NOT EXISTS idx_applications_pipeline_stage ON applications(pipel
 ## 🎯 Current Features:
 
 ### ✨ New Pipeline System
-- **17 detailed stages** instead of just 5 basic statuses
+- **16 detailed stages** instead of just 5 basic statuses
 - **4 phase groupings**: Application → Interview → Decision → Other
 - **Visual progress bars** on each job card
 - **Quick action buttons** for easy stage advancement
